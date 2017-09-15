@@ -1,0 +1,30 @@
+{
+  "name": "example",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "standard && tap test/*.test.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fastify/example.git"
+  },
+  "keywords": [],
+  "author": "Tomas Della Vedova - @delvedor (http://delved.org)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fastify/example/issues"
+  },
+  "homepage": "https://github.com/fastify/example#readme",
+  "dependencies": {
+    "fastify": "^0.27.0",
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "shot": "^3.4.2",
+    "standard": "^10.0.3",
+    "tap": "^10.7.2"
+  }
+}
