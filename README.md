@@ -3,6 +3,7 @@
 </div>
 
 <div align="center">
+
 [![Build Status](https://travis-ci.org/fastify/example.svg)](https://travis-ci.org/fastify/example) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/) [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/fastify)
 </div>
 <br />
