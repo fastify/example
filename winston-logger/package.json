@@ -1,0 +1,21 @@
+{
+  "name": "winston-logger",
+  "version": "1.0.0",
+  "description": "example how to use winston logger with Fastify v2",
+  "main": "winston-logger.js",
+  "scripts": {
+    "start": "node winston-logger.js",
+    "try-me": "curl http://localhost:3000/hello",
+    "test": "standard"
+  },
+  "keywords": [],
+  "author": "Andrey Chalkin <L2jLiga@gmail.com> (https://github.com/L2jLiga)",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^2.3.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
+  }
+}
