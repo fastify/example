@@ -11,7 +11,7 @@ Here a list of the projects with a description, search in this page what you are
 
 | Project | Tags | Description |
 |---------|------|-------------|
-| [Example] | `auth` `validation` | This is an example project that let you understand how to add a Fastify app to this repo |
+| [validation-messages] | `schema` `validation` | How you can customize the error messages of input schema validation |
 
 ## Contributions
 
@@ -27,4 +27,4 @@ PR are welcome! Consider that a project to be added to this repository needs to 
 
 Licensed under [MIT](./LICENSE).
 
-[Example][./example/]
+[validation-messages]:./validation-messages/
