@@ -10,4 +10,4 @@ npm install
 npm start
 ```
 
-Then open `http://localhost:3000/login` in your browser.
+Then open `http://localhost:3000/login` in your browser and use the `abcdef` password to login.
