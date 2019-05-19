@@ -11,6 +11,7 @@ Here a list of the projects with a description, search in this page what you are
 
 | Project | Tags | Description |
 |---------|------|-------------|
+| [authentication] | `authentication` `session` | Example how to do authentication with `fastify-session` |
 | [validation-messages] | `schema` `validation` | How you can customize the error messages of input schema validation |
 | [winston-logger] | `logger` | Example how to use winston as a custom logger |
 
@@ -28,5 +29,6 @@ PR are welcome! Consider that a project to be added to this repository needs to 
 
 Licensed under [MIT](./LICENSE).
 
+[authentication]: ./fastify-session-authentication
 [validation-messages]:./validation-messages/
 [winston-logger]: ./winston-logger
