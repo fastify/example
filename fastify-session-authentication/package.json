@@ -4,7 +4,8 @@
   "description": "example of authentication using fastify-session",
   "main": "authentication.js",
   "scripts": {
-    "start": "node authentication.js"
+    "start": "node authentication.js",
+    "test": "tap authentication.test.js"
   },
   "author": "Denis Fäcke",
   "license": "MIT",
@@ -13,5 +14,9 @@
     "fastify-cookie": "^3.0.2",
     "fastify-formbody": "^3.1.0",
     "fastify-session": "^2.1.0"
+  },
+  "devDependencies": {
+    "request": "^2.88.0",
+    "tap": "^14.1.7"
   }
 }

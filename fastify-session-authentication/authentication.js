@@ -34,7 +34,7 @@ app.post('/login', (request, reply) => {
     request.session.authenticated = true
     reply.redirect('/')
   } else {
-    reply.redirect('/login')
+    reply.redirect(401, '/login')
   }
 });
 
@@ -60,6 +60,8 @@ app.get('/logout', (request, reply) => {
 });
 
 // start the server
-app.listen(3000, () => {
-  console.log(`server started on port 3000`)
-})
+module.exports = app.listen(3000)
+  .then(() => {
+    console.log(`server started on port 3000`)
+    return app
+  })
