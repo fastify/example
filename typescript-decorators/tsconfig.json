@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "esnext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src",
+
+    /* Strict Type-Checking Options */
+    "strict": true,
+
+    /* Module Resolution Options */
+    "esModuleInterop": true,
+
+    /* Source Map Options */
+    "inlineSourceMap": true,
+    "inlineSources": true,
+
+    /* Experimental Options */
+    "experimentalDecorators": true
+  },
+  "exclude": [
+    "test"
+  ]
+}
