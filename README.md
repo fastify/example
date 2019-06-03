@@ -5,13 +5,22 @@ problems and requirements.
 
 Every directory is a stand alone project that you can read to undestand how it works and how it is configured.
 
-## Project
+## Projects
 
 Here a list of the projects with a description, search in this page what you are looking for
 
 | Project | Tags | Description |
 |---------|------|-------------|
 | [validation-messages] | `schema` `validation` | How you can customize the error messages of input schema validation |
+
+
+## External Projects
+
+Here a list of external projects that could be useful to find some tips and suggestions
+
+| Project | Tags | Description |
+|---------|------|-------------|
+
 
 ## Contributions
 
