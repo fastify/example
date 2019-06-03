@@ -1,3 +1,8 @@
+---
+name: ✨ New example project
+about: Add an example project to this repository
+---
+
 <!--
 Thank you for your pull request. Please provide a description above and review
 the requirements below.
