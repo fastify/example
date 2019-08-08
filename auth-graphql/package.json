@@ -8,9 +8,9 @@
     "lint": "standard",
     "lint:fix": "standard --fix",
     "try-me:public": "curl http://localhost:3000/public",
-    "try-me:private": "curl http://localhost:3000/private",
+    "try-me:private": "curl -X POST http://localhost:3000/graphql -H 'Content-Type: application/json' -H 'Authorization: Bearer ${JWT_TOKEN}' -d '{\"query\": \"{ add(x: 2, y: 2) }\" }'",
     "try-me:login": "JWT_TOKEN=$(curl -X POST http://localhost:3000/login) && echo ${JWT_TOKEN}",
-    "try-me:private:login": "JWT_TOKEN=$(curl -X POST http://localhost:3000/login) && echo ${JWT_TOKEN} && curl http://localhost:3000/private -H \"Authorization: Bearer ${JWT_TOKEN}\"",
+    "try-me:private:login": "npm run try-me:login && try-me:private",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

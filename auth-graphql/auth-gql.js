@@ -4,6 +4,9 @@ const GQL = require('fastify-gql')
 const JWT = require('fastify-jwt')
 
 function plugin (instance, options, next) {
+  /**
+   * Authentication settings
+   */
   instance.register(JWT, {
     secret: 'supersecret'
   })
@@ -16,17 +19,27 @@ function plugin (instance, options, next) {
 
   instance.decorate('authenticate', async function (request, reply) {
     try {
+      // Autorization logic
       await request.jwtVerify()
     } catch (err) {
       reply.send(err)
     }
   })
 
+  instance.addHook('onRoute', (routeOptions) => {
+    if (routeOptions.url === '/graphql') {
+      routeOptions.preValidation = [instance.authenticate]
+    }
+  })
+
+  /**
+   * GraphQL Stuff
+   */
   const schema = `
-  type Query {
-    add(x: Int, y: Int): Int
-  }
-`
+    type Query {
+      add(x: Int, y: Int): Int
+    }
+  `
 
   const resolvers = {
     Query: {
@@ -34,23 +47,17 @@ function plugin (instance, options, next) {
     }
   }
 
+  // A protected /graphql endpoint is exposed
   instance.register(GQL, {
     schema,
     resolvers
   })
 
+  // I can use the graphql also without authentication
   instance.get('/public', async function (req, reply) {
     const query = '{ add(x: 2, y: 2) }'
     return reply.graphql(query)
   })
-
-  instance.get('/private',
-    {
-      preValidation: [instance.authenticate]
-    }, async function (req, reply) {
-      const query = '{ add(x: 5, y: 5) }'
-      return reply.graphql(query)
-    })
 
   next()
 }
