@@ -1,0 +1,28 @@
+{
+  "name": "auth-graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "fastify start auth-gql.js -l debug -P",
+    "lint": "standard",
+    "lint:fix": "standard --fix",
+    "try-me:public": "curl http://localhost:3000/public",
+    "try-me:private": "curl http://localhost:3000/private",
+    "try-me:login": "JWT_TOKEN=$(curl -X POST http://localhost:3000/login) && echo ${JWT_TOKEN}",
+    "try-me:private:login": "JWT_TOKEN=$(curl -X POST http://localhost:3000/login) && echo ${JWT_TOKEN} && curl http://localhost:3000/private -H \"Authorization: Bearer ${JWT_TOKEN}\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Manuel Spigolon <behemoth89@gmail.com> (https://github.com/Eomm)",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^2.7.1",
+    "fastify-cli": "^1.1.0",
+    "fastify-gql": "^1.3.0",
+    "fastify-jwt": "^1.0.0"
+  },
+  "devDependencies": {
+    "standard": "^13.1.0"
+  }
+}
