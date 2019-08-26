@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "serverless.js",
+      "use": "@now/node",
+      "config": {
+        "helpers": false
+      }
+    }
+  ],
+  "routes": [
+    { "src": "/.*", "dest": "/serverless.js"}
+  ]
+}

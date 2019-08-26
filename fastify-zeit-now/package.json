@@ -1,0 +1,25 @@
+{
+  "name": "fastify-zeit-now",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "now dev",
+    "test": "standard",
+    "deploy": "now"
+  },
+  "keywords": [],
+  "author": "Manuel Spigolon <behemoth89@gmail.com> (https://github.com/Eomm)",
+  "license": "MIT",
+  "engines": {
+    "node": "10.x"
+  },
+  "dependencies": {
+    "fastify": "^2.7.1"
+  },
+  "devDependencies": {
+    "@now/node": "^0.12.7",
+    "now": "^16.1.2",
+    "standard": "^14.0.2"
+  }
+}
