@@ -1,6 +1,7 @@
 'use strict'
 const fastify = require('fastify')
-function build() {
+
+function build () {
   const app = fastify({
     logger: true
   })
