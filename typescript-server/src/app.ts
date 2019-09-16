@@ -13,25 +13,19 @@ import { createReadStream } from 'fs'
 import path from 'path';
 import { ServerResponse, IncomingMessage, Server} from 'http'
 import { AddressInfo } from 'net';
+import S from 'fluent-schema'
 
 const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify()
+const queryStringJsonSchema = S.object()
+.prop('name', S.string().minLength(8))
+.prop('excitement', S.integer());
 
-const opts = {
-  schema: {
-    response: {
-      200: {
-        type: 'object',
-        properties: {
-          hello: {
-            type: 'string'
-          }
-        }
-      }
-    }
-  }
+const schema = {
+  querystring: queryStringJsonSchema
 }
-
-server.get('/', opts, (req, reply) => {
+console.log('scheme:', JSON.stringify(queryStringJsonSchema.valueOf(), undefined, 2));
+server.get('/', {schema}, (req, reply) => {
+  console.log('x:', req.query.name, req.query.excitement);
   const stream = createReadStream(path.join(__dirname,'../package.json'), 'utf8')
   reply.code(200).send(stream)
 })

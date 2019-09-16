@@ -194,6 +194,11 @@ flatstr@^1.0.12, flatstr@^1.0.9:
   resolved "https://registry.npm.taobao.org/flatstr/download/flatstr-1.0.12.tgz#c2ba6a08173edbb6c9640e3055b95e287ceb5931"
   integrity sha1-wrpqCBc+27bJZA4wVbleKHzrWTE=
 
+fluent-schema@^0.7.5:
+  version "0.7.5"
+  resolved "https://registry.npm.taobao.org/fluent-schema/download/fluent-schema-0.7.5.tgz#035e682b8416c232a5ab80806e7000d5fbebf5c6"
+  integrity sha1-A15oK4QWwjKlq4CAbnAA1fvr9cY=
+
 forwarded@~0.1.2:
   version "0.1.2"
   resolved "https://registry.npm.taobao.org/forwarded/download/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
