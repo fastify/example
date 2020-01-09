@@ -1,28 +1,19 @@
-import { FastifyReply, FastifyRequest } from 'fastify'
-import { AbstractController, Controller, ControllerType, GET, Hook, POST } from 'fastify-decorators';
+import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
+import { Controller, ControllerType, FastifyInstanceToken, GET, Hook, Inject, POST } from 'fastify-decorators'
 import { IncomingMessage, ServerResponse } from 'http'
+import { MessageService } from '../services/message.service';
 
 // Define controller
 @Controller({
     route: '/main', // Base URL for all controller handlers
     type: ControllerType.SINGLETON // SINGLETON is default controller type, just define it explicit
 })
-class MainController
-    // It's optional. We have to extends AbstractController to have Fastify instance accessible inside.
-    extends AbstractController {
-    public get message(): string {
-        return this._message;
+class MainController {
+    @Inject(FastifyInstanceToken)
+    private instance!: FastifyInstance
+
+    constructor(private messageService: MessageService) {
     }
-
-    public set message(value: string) {
-        // Using Fastify instance to log that field was changed
-        this.instance.log.info(`New value received: ${value}`);
-
-        this._message = value;
-    }
-
-    // Field to store and read message
-    private _message: string = ''
 
     // Creates controller's GET handler which will return message, actually parameters are not required but kept for simplicity
     @GET({url: '/'})
@@ -31,7 +22,7 @@ class MainController
         reply: FastifyReply<ServerResponse>
     ) {
 
-        return {message: this._message}
+        return { message: this.messageService.message }
     }
 
     // Creates controller's POST handler which will store message
@@ -40,13 +31,20 @@ class MainController
         req: FastifyRequest<IncomingMessage>,
         reply: FastifyReply<ServerResponse>
     ) {
-        this._message = req.body._message
+        const value = req.body.message
 
-        return {message: 'OK'}
+        // Using Fastify instance to log that field was changed
+        this.instance.log.info(`New value received: ${value}`)
+
+        // Storing message in service
+        this.messageService.message = value
+
+        // Reply with OK
+        return { message: 'OK' }
     }
 
     // Creates controller's hook (Fastify Hooks)
-    @Hook('onResponse')
+    @Hook('onSend')
     public async changeXPoweredBy(
         req: FastifyRequest<IncomingMessage>,
         reply: FastifyReply<ServerResponse>
