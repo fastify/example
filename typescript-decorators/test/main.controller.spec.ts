@@ -25,7 +25,7 @@ tap.test(`Controller should keep state`, async (t: any) => {
         const {payload} = await instance.inject({
             url: '/main/',
             method: 'POST',
-            payload: {message: 'test'}
+            payload: { message: 'test' }
         })
 
         t.match(payload, `{"message":"OK"}`)

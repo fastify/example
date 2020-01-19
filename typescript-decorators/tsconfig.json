@@ -18,7 +18,8 @@
     "inlineSources": true,
 
     /* Experimental Options */
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "exclude": [
     "test"
