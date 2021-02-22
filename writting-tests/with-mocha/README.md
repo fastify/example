@@ -1,6 +1,4 @@
-# Example on how to write good Tests for Fastify App
-
-
+# Example on how to write good Tests for Fastify App using mocha
 Run
 
 ```bash
