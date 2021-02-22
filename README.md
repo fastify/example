@@ -15,7 +15,9 @@ Here a list of the projects with a description, search in this page what you are
 | [validation-messages] | `schema` `validation` | How you can customize the error messages of input schema validation |
 | [winston-logger] | `logger` | Example how to use winston as a custom logger |
 | [typescript decorators] | `typescript` | Example how to use typescript decorators to build application |
-
+| [testing with mocha] | `testing` | Example that show how to propery test you fasitfy application |
+| [testing with jest] | `testing` | Example that shows how to propery test with jest |
+| [testing with tap] | `testing` | Example that shows how to propery test with tap |
 
 ## External Projects
 
@@ -40,6 +42,9 @@ PR are welcome! Consider that a project to be added to this repository needs to 
 Licensed under [MIT](./LICENSE).
 
 [authentication]: ./fastify-session-authentication
-[validation-messages]:./validation-messages/
+[validation-messages]: ./validation-messages/
 [winston-logger]: ./winston-logger
 [typescript decorators]: ./typescript-decorators
+[testing with mocha]: ./writting-tests/with-mocha
+[testing with jest]: ./writting-tests/with-jest
+[testing with tap]: ./writting-tests/with-tap
