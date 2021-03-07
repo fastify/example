@@ -1,0 +1,23 @@
+{
+  "name": "with-tap",
+  "version": "0.0.1",
+  "description": "Run",
+  "main": "app.js",
+  "scripts": {
+    "test": "tap --reporter=list --watch",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Makuza Mugabo Verite <mugaboverite@gmail.com> (https://veritem.me/)",
+  "license": "MIT",
+  "devDependencies": {
+    "tap": "^14.11.0"
+  },
+  "dependencies": {
+    "fastify": "^3.13.0",
+    "pino-pretty": "^4.7.0"
+  },
+  "prettier": {
+    "semi": true
+  }
+}
