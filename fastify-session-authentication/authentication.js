@@ -23,11 +23,11 @@ function plugin (instance, options, next) {
     reply.type('text/html')
     reply.send(loginPage())
   })
-  
+
   // add a login route that handles the actual login
   instance.post('/login', (request, reply) => {
     const { email, password } = request.body
-  
+
     if (password === 'abcdef') {
       request.session.authenticated = true
       reply.redirect('/')
@@ -40,7 +40,7 @@ function plugin (instance, options, next) {
     reply.type('text/html')
     reply.send(defaultPage(request.session.authenticated))
   });
-  
+
   // add a logout route
   instance.get('/logout', (request, reply) => {
     if (request.session.authenticated) {

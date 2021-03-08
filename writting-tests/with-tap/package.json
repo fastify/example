@@ -19,6 +19,7 @@
     "pino-pretty": "^4.7.0"
   },
   "prettier": {
-    "semi": true
+    "semi": false,
+    "singleQuote": true
   }
 }
