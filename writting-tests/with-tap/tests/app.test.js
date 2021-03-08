@@ -15,11 +15,11 @@ test('requests the "/" route', async (t) => {
 });
 
 // How test get request with query parameters
-test("should get params from url", async (t) => {
-  try {
-    const res = await fastify.inject({ method: "POST", url: "/1232" });
-    console.log(res.statusCode);
-  } catch (error) {
-    console.error({ error });
-  }
-});
+// test("should get params from url", async (t) => {
+//   try {
+//     const res = await fastify.inject({ method: "POST", url: "/1232" });
+//     console.log(res.statusCode);
+//   } catch (error) {
+//     console.error({ error });
+//   }
+// });

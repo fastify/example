@@ -4,7 +4,8 @@
   "description": "Run",
   "main": "app.js",
   "scripts": {
-    "test": "tap --reporter=list --watch",
+    "test:watch": "tap --reporter=list --watch",
+    "test": "tap",
     "start": "node server.js"
   },
   "keywords": [],
