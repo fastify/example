@@ -1,15 +1,18 @@
-"use strict";
+'use strict'
 
-const server = require("./app")({
+import fastify from 'fastify'
+
+const app = fastify({
   logger: {
-    level: "info",
     prettyPrint: true,
   },
-});
+})
 
-server.listen(3000, (err, address) => {
+app.register(import('./app.js'))
+
+app.listen(3000, (err, address) => {
   if (err) {
-    console.log(err);
-    process.exit(1);
+    console.log(err)
+    process.exit(1)
   }
-});
+})

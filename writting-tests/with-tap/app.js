@@ -1,55 +1,9 @@
-"use strict";
+'use strict'
 
-const fastify = require("fastify");
+import { join } from 'desm'
 
-function build(opts = {}) {
-  const app = fastify(opts);
-
-  const pets = [
-    {
-      id: 1,
-      name: "cat",
-    },
-    {
-      id: 2,
-      name: "dog",
-    },
-  ];
-
-  app.get("/", async function (request, reply) {
-    return { data: pets };
-  });
-
-  app.get("/:id", async function (request, reply) {
-    const pet = pets.find((pet) => pet.id == request.params.id);
-
-    return { data: pet };
-  });
-
-  app.post("/", async function (request, reply) {
-    pets.push({
-      id: pets.length + 1,
-      name: request.body.name,
-    });
-    return request.body;
-  });
-
-  app.delete("/:id", async function (request, reply) {
-    const petToRemove = pets.findIndex((pet) => pet.id == request.params.id);
-    const removedObject = pets[petToRemove];
-    pets.splice(petToRemove, 1);
-
-    return removedObject;
-  });
-
-  app.put("/:id", async function (request, reply) {
-    const petToUse = pets.findIndex((pet) => pet.id == request.params.id);
-    const updatedObject = (pets[petToUse].name = request.body.name);
-
-    return updatedObject;
-  });
-
-  return app;
+export default async function app(app, opts) {
+  app.register(import('fastify-autoload'), {
+    dir: join(import.meta.url, 'routes'),
+  })
 }
-
-module.exports = build;

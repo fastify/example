@@ -1,25 +1,18 @@
 {
-  "name": "with-tap",
+  "name": "with-mocha",
   "version": "0.0.1",
   "description": "Run",
   "main": "app.js",
-  "type": "module",
   "scripts": {
-    "test:watch": "tap --reporter=list --watch",
-    "test": "tap --no-esm",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "keywords": [],
   "author": "Makuza Mugabo Verite <mugaboverite@gmail.com> (https://veritem.me/)",
   "license": "MIT",
-  "devDependencies": {
-    "tap": "^14.11.0"
-  },
   "dependencies": {
-    "desm": "^1.1.0",
     "fastify": "^3.13.0",
-    "fastify-autoload": "^3.5.2",
-    "pino-pretty": "^4.7.0"
+    "pino-pretty": "^4.7.1"
   },
   "prettier": {
     "semi": false,
