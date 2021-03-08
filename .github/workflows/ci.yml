@@ -1,28 +1,16 @@
 name: CI
-
-on:
-  push:
-    branches: [ adding-tests ]
-  pull_request:
-    branches: [ adding-tests ]
-
+on: [push, pull_request]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
-     strategy:
-      matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
-
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        working-directory: ./writting-tests/with-tap
-
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
         with:
-        node-version: ${{ matrix.node-version }}
-
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+          working-directory: writting-tests/with-tap
+          useLockFile: false
+      # - uses: bahmutov/npm-install@v1
+      #   with:
+      #     working-directory: server
+      #     useLockFile: false
