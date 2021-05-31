@@ -26,8 +26,7 @@ module.exports = function (fastify, options, next) {
     schema: {
       querystring: schema
     },
-    // It is necessary to provide the augmented ajv instance to fastify
-    schemaCompiler: schema => {
+    validatorCompiler: ({ schema }) => {
       const validate = ajv.compile(schema)
       return validate
     }
