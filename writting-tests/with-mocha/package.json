@@ -1,0 +1,21 @@
+{
+  "name": "with-mocha",
+  "version": "0.0.1",
+  "description": "Run",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Makuza Mugabo Verite <mugaboverite@gmail.com> (https://veritem.me/)",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^3.13.0",
+    "pino-pretty": "^4.7.1"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  }
+}
