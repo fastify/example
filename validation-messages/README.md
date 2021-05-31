@@ -1,4 +1,4 @@
-# example of custom validation errors using AJV and Fastify v2
+# example of custom validation errors using AJV and Fastify v3
 
 This example show you how to customize the errors messages through input schema validation.
 
