@@ -1,8 +1,11 @@
 const { Pool } = require("pg");
+
+const connectionString =
+  process.env.DATABASE_URL ||
+  "postgresql://postgres:postgres@localhost:5432/fastify_postgres?schema=public";
+
 const pool = new Pool({
-  connectionString:
-    process.env.DATABASE_URL ||
-    "postgresql://postgres:postgres@localhost:5432/fastify_postgres?schema=public",
+  connectionString,
 });
 
 module.exports = {
