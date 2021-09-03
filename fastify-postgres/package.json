@@ -1,0 +1,24 @@
+{
+  "name": "fastify-postgres",
+  "version": "1.0.0",
+  "description": "Example on how to use, fastify with postgres database unit and integration test",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap",
+    "start": "node index.js",
+    "start:db": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres"
+  },
+  "keywords": [
+    "postgres",
+    "fastify"
+  ],
+  "author": "Manda Putra <mandaputra8@gmail.com> (https://github.com/mandaputtra)",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^3.20.2",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "tap": "^15.0.9"
+  }
+}
