@@ -1,31 +1,29 @@
 version: "3.8"
-  services:
-    fastify_postgres:
-      build:
-        context: ./
-        dockerfile: Dockerfile
-      volumes:
-        - .:/src
-      command: >
-        sh -c "npm start"
-      expose:
-        - "3000"
-      ports:
-        - "3000:3000"
-      depends_on:
-        - db_postgres
+services:
+  db_postgres:
+    image: postgres:latest
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=fastify_postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
-    db_postgres:
-      image: postgres:latest
-      expose:
-        - "5432"
-      ports:
-        - "5432:5432"
-      environment:
-        - POSTGRES_DB=fastify_postgres
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
-
-   integration_test:
+  fastify_postgres:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - .:/src
     command: >
-      sh -c "npm test"
+      sh -c "npm start"
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db_postgres
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db_postgres:5432/fastify_postgres?schema=public

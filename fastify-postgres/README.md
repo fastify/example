@@ -26,5 +26,5 @@ With docker compose
 $ docker-compose up
 
 # testing
-$ docker-compose -f docker-compose.yaml up integration_test --exit-code-from fastify_postgres
+$ docker-compose -f docker-compose.yaml -f compose-file/test.yaml --exit-code-from fastify_postgres
 ```
