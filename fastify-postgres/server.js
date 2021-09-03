@@ -23,6 +23,7 @@ function build(opts = {}) {
       const books = await getAll();
       reply.send(books.rows);
     } catch (error) {
+      app.log.error(error);
       reply.code(500).send({ message: "internal server error" });
     }
   });
@@ -33,6 +34,7 @@ function build(opts = {}) {
       const book = await create(body.title);
       reply.send(book.rows);
     } catch (error) {
+      app.log.error(error);
       reply.code(500).send({ message: "internal server error" });
     }
   });
@@ -43,6 +45,7 @@ function build(opts = {}) {
       const book = await getById(+params.id);
       reply.send(book.rows);
     } catch (error) {
+      app.log.error(error);
       reply.code(500).send({ message: "internal server error" });
     }
   });
@@ -53,6 +56,7 @@ function build(opts = {}) {
       const book = await update(params.id, body.title);
       reply.send(book.rows);
     } catch (error) {
+      app.log.error(error);
       reply.code(500).send({ message: "internal server error" });
     }
   });
@@ -63,6 +67,7 @@ function build(opts = {}) {
       const book = await deleteById(params.id);
       reply.send(book);
     } catch (error) {
+      app.log.error(error);
       reply.code(500).send({ message: "internal server error" });
     }
   });
