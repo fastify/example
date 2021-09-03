@@ -15,6 +15,7 @@ Here a list of the projects with a description, search in this page what you are
 | [validation-messages] | `schema` `validation` | How you can customize the error messages of input schema validation |
 | [winston-logger] | `logger` | Example how to use winston as a custom logger |
 | [typescript decorators] | `typescript` | Example how to use typescript decorators to build application |
+| [fastify postgres] | `postgres` `crud` | Simple CRUD app that show how integrate fastify with database, with 100% test coverage |
 
 
 ## External Projects
@@ -43,3 +44,4 @@ Licensed under [MIT](./LICENSE).
 [validation-messages]:./validation-messages/
 [winston-logger]: ./winston-logger
 [typescript decorators]: ./typescript-decorators
+[fastify postgres]: /.fastify-postgres
