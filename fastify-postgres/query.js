@@ -14,7 +14,9 @@ async function getAll() {
 }
 
 async function create(title) {
-  return await db.query("INSERT INTO books (title) VALUES ($1)", [title]);
+  return await db.query("INSERT INTO books (title) VALUES ($1) RETURNING *", [
+    title,
+  ]);
 }
 
 async function getById(id) {
@@ -22,10 +24,8 @@ async function getById(id) {
 }
 
 async function update(id, title) {
-  return await db.query("UPDATE books SET title = $1 WHERE id = $2", [
-    title,
-    id,
-  ]);
+  await db.query("UPDATE books SET title = $1 WHERE id = $2", [title, id]);
+  return await getById(id);
 }
 
 async function deleteById(id) {

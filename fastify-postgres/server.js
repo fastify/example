@@ -20,8 +20,8 @@ function build(opts = {}) {
 
   app.get("/", async (_request, reply) => {
     try {
-      const books = getAll();
-      reply.send(books);
+      const books = await getAll();
+      reply.send(books.rows);
     } catch (error) {
       reply.code(500).send({ message: "internal server error" });
     }
@@ -30,8 +30,8 @@ function build(opts = {}) {
   app.post("/", async (request, reply) => {
     try {
       const { body } = request;
-      const book = create(body.title);
-      reply.send(book);
+      const book = await create(body.title);
+      reply.send(book.rows);
     } catch (error) {
       reply.code(500).send({ message: "internal server error" });
     }
@@ -40,8 +40,8 @@ function build(opts = {}) {
   app.get("/:id", async (request, reply) => {
     try {
       const { params } = request;
-      const book = getById(params.id);
-      reply.send(book);
+      const book = await getById(+params.id);
+      reply.send(book.rows);
     } catch (error) {
       reply.code(500).send({ message: "internal server error" });
     }
@@ -50,8 +50,8 @@ function build(opts = {}) {
   app.patch("/:id", async (request, reply) => {
     try {
       const { params, body } = request;
-      const book = update(params.id, body.title);
-      reply.send(book);
+      const book = await update(params.id, body.title);
+      reply.send(book.rows);
     } catch (error) {
       reply.code(500).send({ message: "internal server error" });
     }
@@ -60,7 +60,7 @@ function build(opts = {}) {
   app.delete("/:id", async (request, reply) => {
     try {
       const { params } = request;
-      const book = deleteById(params.id);
+      const book = await deleteById(params.id);
       reply.send(book);
     } catch (error) {
       reply.code(500).send({ message: "internal server error" });
