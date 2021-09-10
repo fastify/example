@@ -11,14 +11,14 @@ function build(opts = {}) {
 
   app.register(require("fastify-postgres"), { connectionString });
 
-  app.get("/", async (_request, reply) => {
+  app.get("/", async () => {
     const client = await app.pg.connect();
     const { rows } = await client.query("SELECT * FROM books");
     client.release();
-    reply.send(rows);
+    return rows;
   });
 
-  app.post("/", async (request, reply) => {
+  app.post("/", async (request) => {
     const { body } = request;
     const client = await app.pg.connect();
     const { rows } = await client.query(
@@ -26,17 +26,17 @@ function build(opts = {}) {
       [body.title]
     );
     client.release();
-    reply.send(rows);
+    return rows;
   });
 
-  app.get("/:id", async (request, reply) => {
+  app.get("/:id", async (request) => {
     const { params } = request;
     const client = await app.pg.connect();
     const { rows } = await client.query("SELECT * FROM books WHERE id = $1", [
       +params.id,
     ]);
     client.release();
-    reply.send(rows);
+    return rows;
   });
 
   app.patch("/:id", async (request) => {
@@ -53,14 +53,14 @@ function build(opts = {}) {
     });
   });
 
-  app.delete("/:id", async (request, reply) => {
+  app.delete("/:id", async (request) => {
     const { params } = request;
     const client = await app.pg.connect();
     const { rowCount } = await client.query("DELETE FROM books WHERE id = $1", [
       +params.id,
     ]);
     client.release();
-    reply.send({ rowCount });
+    return { rowCount };
   });
 
   return app;
