@@ -12,78 +12,55 @@ function build(opts = {}) {
   app.register(require("fastify-postgres"), { connectionString });
 
   app.get("/", async (_request, reply) => {
-    try {
-      const client = await app.pg.connect();
-      const { rows } = await client.query("SELECT * FROM books");
-      client.release();
-      reply.send(rows);
-    } catch (error) {
-      reply.code(500).send(error.message);
-    }
+    const client = await app.pg.connect();
+    const { rows } = await client.query("SELECT * FROM books");
+    client.release();
+    reply.send(rows);
   });
 
   app.post("/", async (request, reply) => {
-    try {
-      const { body } = request;
-      const client = await app.pg.connect();
-      const { rows } = await client.query(
-        "INSERT INTO books (title) VALUES ($1) RETURNING *",
-        [body.title]
-      );
-      client.release();
-      reply.send(rows);
-    } catch (error) {
-      reply.code(500).send(error.message);
-    }
+    const { body } = request;
+    const client = await app.pg.connect();
+    const { rows } = await client.query(
+      "INSERT INTO books (title) VALUES ($1) RETURNING *",
+      [body.title]
+    );
+    client.release();
+    reply.send(rows);
   });
 
   app.get("/:id", async (request, reply) => {
-    try {
-      const { params } = request;
-      const client = await app.pg.connect();
+    const { params } = request;
+    const client = await app.pg.connect();
+    const { rows } = await client.query("SELECT * FROM books WHERE id = $1", [
+      +params.id,
+    ]);
+    client.release();
+    reply.send(rows);
+  });
+
+  app.patch("/:id", async (request) => {
+    const { params, body } = request;
+    return app.pg.transact(async (client) => {
+      await client.query("UPDATE books SET title = $1 WHERE id = $2", [
+        body.title,
+        +params.id,
+      ]);
       const { rows } = await client.query("SELECT * FROM books WHERE id = $1", [
         +params.id,
       ]);
-      client.release();
-      reply.send(rows);
-    } catch (error) {
-      reply.code(500).send(error.message);
-    }
-  });
-
-  app.patch("/:id", async (request, reply) => {
-    const { params, body } = request;
-    try {
-      const data = await app.pg.transact(async (client) => {
-        await client.query("UPDATE books SET title = $1 WHERE id = $2", [
-          body.title,
-          +params.id,
-        ]);
-        const { rows } = await client.query(
-          "SELECT * FROM books WHERE id = $1",
-          [+params.id]
-        );
-        return rows;
-      });
-      reply.send(data);
-    } catch (error) {
-      reply.code(500).send(error.message);
-    }
+      return rows;
+    });
   });
 
   app.delete("/:id", async (request, reply) => {
-    try {
-      const { params } = request;
-      const client = await app.pg.connect();
-      const { rowCount } = await client.query(
-        "DELETE FROM books WHERE id = $1",
-        [+params.id]
-      );
-      client.release();
-      reply.send({ rowCount });
-    } catch (error) {
-      reply.code(500).send(error.message);
-    }
+    const { params } = request;
+    const client = await app.pg.connect();
+    const { rowCount } = await client.query("DELETE FROM books WHERE id = $1", [
+      +params.id,
+    ]);
+    client.release();
+    reply.send({ rowCount });
   });
 
   return app;

@@ -7,13 +7,14 @@
     "test": "tap",
     "start": "node index.js",
     "start:db": "docker-compose up -d db",
-    "migration": "node migration.js"
+    "migrate:up": "MIGRATE_ACTION=do node migration.js",
+    "migrate:down": "MIGRATE_ACTION=undo node migration.js"
   },
   "keywords": [
     "postgres",
     "fastify"
   ],
-  "author": "Manda Putra <mandaputra8@gmail.com> (https://github.com/mandaputtra)",
+  "author": "Manda Putra <manda@omg.lol> (https://github.com/mandaputtra)",
   "license": "MIT",
   "dependencies": {
     "fastify": "^3.20.2",

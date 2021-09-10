@@ -2,4 +2,4 @@ version: "3.8"
 services:
   fastify_postgres:
     command: >
-      sh -c "npm run migration"
+      sh -c "npm run migration:down"
