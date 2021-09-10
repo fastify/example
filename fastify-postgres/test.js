@@ -7,6 +7,7 @@ tap.test("should test all API endpoint", async (t) => {
   let book = {};
 
   const app = await fastify();
+
   t.teardown(() => app.close());
   // only to test error path
   t.test("POST / should success create item", async (t) => {
@@ -29,8 +30,10 @@ tap.test("should test all API endpoint", async (t) => {
       method: "GET",
       url: "/",
     });
+    const json = response.json();
     t.equal(response.statusCode, 200);
-    t.equal(response.json().length > 0, true);
+    t.equal(json.length > 0, true);
+    t.equal(json[0].title, "Hello, World!");
   });
 
   t.test("GET /:id should success return item", async (t) => {
@@ -52,7 +55,6 @@ tap.test("should test all API endpoint", async (t) => {
       },
     });
     const json = response.json();
-    console.log(json);
     t.equal(response.statusCode, 200);
     t.equal(json[0].title, "Hello again, World!");
   });
@@ -62,6 +64,8 @@ tap.test("should test all API endpoint", async (t) => {
       method: "DELETE",
       url: `/${book.id}`,
     });
+    const json = response.json();
     t.equal(response.statusCode, 200);
+    t.equal(json.rowCount, 1);
   });
 });

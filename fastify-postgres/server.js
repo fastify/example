@@ -75,11 +75,12 @@ function build(opts = {}) {
     try {
       const { params } = request;
       const client = await app.pg.connect();
-      const data = await client.query("DELETE FROM books WHERE id = $1", [
-        +params.id,
-      ]);
+      const { rowCount } = await client.query(
+        "DELETE FROM books WHERE id = $1",
+        [+params.id]
+      );
       client.release();
-      reply.send(data);
+      reply.send({ rowCount });
     } catch (error) {
       reply.code(500).send(error.message);
     }
