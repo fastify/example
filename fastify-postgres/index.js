@@ -1,3 +1,5 @@
+"use strict";
+
 const app = require("./server")({ logger: true });
 
 const start = async () => {

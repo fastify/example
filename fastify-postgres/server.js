@@ -1,81 +1,90 @@
+"use strict";
+
 const fastify = require("fastify");
 
-const {
-  migration,
-  getAll,
-  getById,
-  create,
-  deleteById,
-  update,
-} = require("./query");
-const db = require("./db");
+const connectionString =
+  process.env.DATABASE_URL ||
+  "postgresql://postgres:postgres@localhost:5432/fastify_postgres?schema=public";
 
 function build(opts = {}) {
   const app = fastify(opts);
 
-  // You should'nt run your migration everytime your app boot
-  // make a script outsied of app that can be run before development
-  // or before deployment
-  migration();
+  app.register(require("fastify-postgres"), { connectionString });
 
   app.get("/", async (_request, reply) => {
     try {
-      const books = await getAll();
-      reply.send(books.rows);
+      const client = await app.pg.connect();
+      const { rows } = await client.query("SELECT * FROM books");
+      client.release();
+      reply.send(rows);
     } catch (error) {
-      app.log.error(error);
-      reply.code(500).send({ message: "internal server error" });
+      reply.code(500).send(error.message);
     }
   });
 
   app.post("/", async (request, reply) => {
     try {
       const { body } = request;
-      const book = await create(body.title);
-      reply.send(book.rows);
+      const client = await app.pg.connect();
+      const { rows } = await client.query(
+        "INSERT INTO books (title) VALUES ($1) RETURNING *",
+        [body.title]
+      );
+      client.release();
+      reply.send(rows);
     } catch (error) {
-      app.log.error(error);
-      reply.code(500).send({ message: "internal server error" });
+      reply.code(500).send(error.message);
     }
   });
 
   app.get("/:id", async (request, reply) => {
     try {
       const { params } = request;
-      const book = await getById(+params.id);
-      reply.send(book.rows);
+      const client = await app.pg.connect();
+      const { rows } = await client.query("SELECT * FROM books WHERE id = $1", [
+        +params.id,
+      ]);
+      client.release();
+      reply.send(rows);
     } catch (error) {
-      app.log.error(error);
-      reply.code(500).send({ message: "internal server error" });
+      reply.code(500).send(error.message);
     }
   });
 
   app.patch("/:id", async (request, reply) => {
+    const { params, body } = request;
     try {
-      const { params, body } = request;
-      const book = await update(params.id, body.title);
-      reply.send(book.rows);
+      const data = await app.pg.transact(async (client) => {
+        await client.query("UPDATE books SET title = $1 WHERE id = $2", [
+          body.title,
+          +params.id,
+        ]);
+        const { rows } = await client.query(
+          "SELECT * FROM books WHERE id = $1",
+          [+params.id]
+        );
+        return rows;
+      });
+      reply.send(data);
     } catch (error) {
-      app.log.error(error);
-      reply.code(500).send({ message: "internal server error" });
+      reply.code(500).send(error.message);
     }
   });
 
   app.delete("/:id", async (request, reply) => {
     try {
       const { params } = request;
-      const book = await deleteById(params.id);
-      reply.send(book);
+      const client = await app.pg.connect();
+      const data = await client.query("DELETE FROM books WHERE id = $1", [
+        +params.id,
+      ]);
+      client.release();
+      reply.send(data);
     } catch (error) {
-      app.log.error(error);
-      reply.code(500).send({ message: "internal server error" });
+      reply.code(500).send(error.message);
     }
   });
 
-  app.addHook("onClose", (_instance, done) => {
-    db.close();
-    done();
-  });
   return app;
 }
 

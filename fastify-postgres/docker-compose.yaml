@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  db_postgres:
+  db:
     image: postgres:latest
     expose:
       - "5432"
@@ -24,6 +24,6 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - db_postgres
+      - db
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db_postgres:5432/fastify_postgres?schema=public

@@ -23,6 +23,10 @@ $ npm test
 With docker compose
 
 ```
+# migration
+$ docker-compose -f docker-compose.yaml -f compose-file/migration.yaml --exit-code-from fastify_postgres
+
+# run the app
 $ docker-compose up
 
 # testing
