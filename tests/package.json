@@ -10,17 +10,12 @@
   "license": "MIT",
   "dependencies": {
     "fastify": "^2.3.0",
-    "fastify-cookie": "^3.0.2",
-    "fastify-formbody": "^3.1.0",
     "fastify-mongodb": "^4.1.0",
     "fastify-plugin": "^3.0.0",
-    "fastify-session": "^2.1.0",
     "mongodb": "^4.1.2"
   },
   "devDependencies": {
-    "fastify-cli": "^1.0.0",
     "mongo-clean": "^2.0.0",
-    "request": "^2.88.0",
     "tap": "^14.11.0"
   }
 }
