@@ -1,3 +1,5 @@
+'use strict'
+
 const Fastify = require('fastify')
 const fp = require('fastify-plugin')
 const fastifyMongodb = require('fastify-mongodb')
