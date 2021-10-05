@@ -1,7 +1,4 @@
-const Fastify = require('fastify')
-const fp = require('fastify-plugin')
 const fastifyMongodb = require('fastify-mongodb')
-const mongodb = require('mongodb')
 
 function app(fastify, config, done) {
   fastify.register(fastifyMongodb, { client: config.mongodb.client })
@@ -12,31 +9,9 @@ function app(fastify, config, done) {
   })
 
   fastify.addHook('onClose', async () => {
-    await config.mongodb.client.close()
+    await fastif.mongo.client.close()
   })
   done()
 }
 
-async function server() {
-  const fastify = Fastify({ logger: true })
-  const database = process.env.MONGO_URI || 'mongodb://localhost/prod'
-  const client = await mongodb.MongoClient.connect(database)
-  fastify.register(
-    fp(app),
-    {
-      mongodb: {
-        client,
-        database,
-      }
-    }
-  )
-
-  fastify.listen(3000)
-}
-
-if (require.main === module) {
-  server()
-} else {
-  module.exports = app
-}
-
+module.exports = app

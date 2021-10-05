@@ -58,6 +58,5 @@ function build (t) {
 }
 
 module.exports = {
-  config,
   build
 }
