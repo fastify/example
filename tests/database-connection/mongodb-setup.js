@@ -25,11 +25,10 @@ function build (t) {
   const app = Fastify()
   app.register(fp(App), config())
 
-  t.teardown(app.close.bind(app))
-  t.beforeEach(async function () {
-    await clean(app.mongo.db(database))
+  t.teardown(async () => {
+    await clean(app.mongo.client.db(database))
+    await app.close()
   })
-
   return app
 }
 
