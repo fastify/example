@@ -1,3 +1,5 @@
+'use strict'
+
 const fastifyMongodb = require('fastify-mongodb')
 
 function app(fastify, config, done) {
