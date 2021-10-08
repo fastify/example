@@ -10,9 +10,6 @@ function app(fastify, config, done) {
     return reply.send(results)
   })
 
-  fastify.addHook('onClose', async () => {
-    await fastify.mongo.client.close()
-  })
   done()
 }
 
