@@ -1,0 +1,20 @@
+{
+  "name": "database-connection",
+  "version": "1.0.0",
+  "description": "example of tests using database",
+  "main": "mongodb-test.js",
+  "scripts": {
+    "test:database": "tap ./database-connection/mongodb.test.js"
+  },
+  "author": "Fastify",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^2.3.0",
+    "fastify-mongodb": "^4.1.0",
+    "fastify-plugin": "^3.0.0"
+  },
+  "devDependencies": {
+    "mongo-clean": "^2.0.0",
+    "tap": "^14.11.0"
+  }
+}
