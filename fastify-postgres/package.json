@@ -1,0 +1,27 @@
+{
+  "name": "fastify-database-example",
+  "version": "1.0.0",
+  "description": "Example on how to use, fastify with postgres database unit and integration test",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap",
+    "start": "node index.js",
+    "start:db": "docker-compose up -d db",
+    "migrate:up": "MIGRATE_ACTION=do node migration.js",
+    "migrate:down": "MIGRATE_ACTION=undo node migration.js"
+  },
+  "keywords": [
+    "postgres",
+    "fastify"
+  ],
+  "author": "Manda Putra <manda@omg.lol> (https://github.com/mandaputtra)",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^3.20.2",
+    "fastify-postgres": "^3.6.0",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "tap": "^15.0.9"
+  }
+}
