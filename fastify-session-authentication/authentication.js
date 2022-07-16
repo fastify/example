@@ -1,9 +1,9 @@
 'use strict'
 
 const fastify = require('fastify')
-const fastifySession = require('fastify-session')
-const fastifyCookie = require('fastify-cookie')
-const fastifyFormbody = require('fastify-formbody')
+const fastifySession = require('@fastify/session')
+const fastifyCookie = require('@fastify/cookie')
+const fastifyFormbody = require('@fastify/formbody')
 
 const { loginPage, defaultPage } = require('./html')
 
@@ -44,7 +44,7 @@ function plugin (instance, options, next) {
   // add a logout route
   instance.get('/logout', (request, reply) => {
     if (request.session.authenticated) {
-      request.destroySession((err) => {
+      request.session.destroy((err) => {
         if (err) {
           reply.status(500)
           reply.send('Internal Server Error')
