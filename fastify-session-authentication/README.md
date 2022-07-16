@@ -1,6 +1,6 @@
 # fastify-session authentication example
 
-This example shows how to do authentication with [fastify-session](https://github.com/SerayaEryn/fastify-session).
+This example shows how to do authentication with [fastify-session](https://github.com/fastify/session).
 
 This project can simply run by:
 
