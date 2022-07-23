@@ -30,7 +30,8 @@ function plugin (instance, options, next) {
   
     if (password === 'abcdef') {
       request.session.authenticated = true
-      reply.redirect('/')
+      reply.type('text/html')
+      reply.send(defaultPage(true))
     } else {
       reply.redirect(401, '/login')
     }

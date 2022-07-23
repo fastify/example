@@ -16,8 +16,8 @@
     "fastify": "^4.2.1"
   },
   "devDependencies": {
+    "axios": "^0.27.2",
     "fastify-cli": "^4.3.0",
-    "request": "^2.88.2",
     "tap": "^16.3.0"
   }
 }
