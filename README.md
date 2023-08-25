@@ -45,4 +45,4 @@ Licensed under [MIT](./LICENSE).
 [validation-messages]:./validation-messages/
 [winston-logger]: ./winston-logger
 [typescript decorators]: ./typescript-decorators
-[fastify postgres]: /.fastify-postgres
+[fastify postgres]: /fastify-postgres
