@@ -2,89 +2,102 @@
 
 const { test } = require('tap')
 const plugin = require('./authentication')
-const requestCallback = require('request')
+const axios = require('axios')
 const fastify = require('fastify')
 
 test('should be able to login', async (t) => {
   t.plan(3)
   
-  const { port } = await startServer()
+  const app = await server()
+  const { port } = app.server.address()
 
   const result0 = await performLogin(port, 'abcdef')
   const result1 = await toHomePage(port, result0.sessionCookie)
-  
-  t.equals(result0.location, '/')
+
+  t.ok(result0.body.includes('logged in'))
   t.ok(result1.body.includes('logged in'))
-  t.equals(result1.sessionCookie, result0.sessionCookie)
+  t.equal(result1.sessionCookie, result0.sessionCookie)
+  app.close()
 })
   
 test('should not be able to login with wrong password', async (t) => {
   t.plan(2)
 
-  const { port } = await startServer()
+  const app = await server()
+  const { port } = app.server.address()
   
   const { location, statusCode } = await performLogin(port, '123456')
 
-  t.equals(location, '/login')
-  t.equals(statusCode, 401)
+  t.equal(location, '/login')
+  t.equal(statusCode, 401)
+  app.close()
 })
 
 test('should be not logged in', async (t) => {
   t.plan(2)
 
-  const { port } = await startServer()
+  const app = await server()
+  const { port } = app.server.address()
   
-  const { sessionCookie, body } = await toHomePage(port)
+  // login route
+  const { sessionCookie, body } = await requestPath(port)
 
   t.ok(body.includes('please login'))
   t.ok(sessionCookie.includes('sessionId'))
+  app.close()
 })
 
 test('should be able to logout', async (t) => {
-  t.plan(5)
+  t.plan(4)
 
-  const { port } = await startServer()
+  const app = await server()
+  const { port } = app.server.address()
   
   const result0 = await performLogin(port, 'abcdef')
   const result1 = await toHomePage(port, result0.sessionCookie)
   const result2 = await logout(port, result0.sessionCookie)
   const result3 = await toHomePage(port, result2.sessionCookie)
-  
-  t.equals(result0.location, '/')
+
   t.ok(result1.body.includes('logged in'))
   t.ok(result3.body.includes('please login'))
   t.ok(result3.sessionCookie === result2.sessionCookie)
   t.ok(result0.sessionCookie !== result2.sessionCookie)
+  app.close()
 })
 
 test('should be able to call logout if not logged in', async (t) => {
   t.plan(2)
 
-  const { port } = await startServer()
+  const app = await server()
+  const { port } = app.server.address()
   
-  const result0 = await logout(port)
+  // logout route
+  const result0 = await requestPath(port, 'logout')
   const result1 = await toHomePage(port, result0.sessionCookie)
   
   t.ok(result1.body.includes('please login'))
   t.ok(result1.sessionCookie === result0.sessionCookie)
+  app.close()
 })
 
 test('should be able to request login page', async (t) => {
   t.plan(1)
   
-  const { port } = await startServer()
+  const app = await server()
+  const { port } = app.server.address()
 
   const { statusCode } = await toLoginPage(port)
 
-  t.equals(statusCode, 200)
+  t.equal(statusCode, 200)
+  app.close()
 })
 
-async function startServer () {
+async function server() {
   const app = fastify()
   app.register(plugin)
   app.server.unref()
-  await app.listen(0)
-  return app.server.address()
+  await app.listen()
+  return app
 }
 
 async function toHomePage(port, cookie) {
@@ -99,8 +112,7 @@ async function performLogin(port, password) {
   return request({
     url: `http://localhost:${port}/login`,
     method: 'POST',
-    form: { email: 'test@test.de', password },
-    followRedirects: false
+    data: { email: 'test@test.de', password },
   });
 }
 
@@ -115,20 +127,32 @@ async function logout(port, cookie) {
   return request({
     url: `http://localhost:${port}/logout`,
     method: 'GET',
-    followRedirects: false,
     headers: { cookie }
   });
 }
 
-function request (options) {
-  return new Promise((resolve, reject) => {
-    requestCallback(options, (err, response, body) => {
-      err ? reject(err) : resolve({
-        statusCode: response.statusCode,
-        body: body.toString(),
-        sessionCookie: response.headers['set-cookie'][0],
-        location: response.headers.location
-      })
-    })
-  })
+async function requestPath(port, path = '') {
+  return request({
+    url: `http://localhost:${port}/${path}`,
+    method: 'GET'
+  });
+}
+
+async function request (options) {
+  try {
+    const res = await axios.request(options)
+
+    return {
+      statusCode: res.status,
+      body: res.data,
+      sessionCookie: res.headers['set-cookie'][0],
+      location: res.request.res.responseUrl
+    }
+  } catch (err) {
+    return {
+      body: err.response?.data,
+      statusCode: err.response?.status,
+      location: err.response?.headers?.location
+    }
+  }
 }
