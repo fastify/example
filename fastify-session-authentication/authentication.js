@@ -14,7 +14,7 @@ function plugin (instance, options, next) {
   instance.register(fastifySession, {
     cookieName: 'sessionId',
     secret: 'a secret with minimum length of 32 characters',
-    cookie: { expires: 1800000, secure: false }
+    cookie: { maxAge: 1800000, secure: false }
   })
 
   // add a login route that returns a login page
