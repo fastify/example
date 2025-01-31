@@ -19,4 +19,4 @@ Contributors guide: https://github.com/fastify/example#contributions
 - [ ] there are comments on code that explain the most difficult parts
 - [ ] the project has been added in the examples list in the root `README.md` of this repository
 - [ ] the `package-lock.json` is commited
-- [ ] commit message and code follows Fastify's [Code of conduct](https://github.com/fastify/fastify/blob/master/CODE_OF_CONDUCT.md)
+- [ ] commit message and code follows Fastify's [Code of conduct](https://github.com/fastify/fastify/blob/main/CODE_OF_CONDUCT.md)
