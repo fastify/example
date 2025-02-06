@@ -4,17 +4,16 @@
   "description": "example of tests using database",
   "main": "mongodb-test.js",
   "scripts": {
-    "test:database": "tap ./database-connection/mongodb.test.js"
+    "test:database": "node --test"
   },
   "author": "Fastify",
   "license": "MIT",
   "dependencies": {
-    "fastify": "^2.3.0",
-    "fastify-mongodb": "^4.1.0",
-    "fastify-plugin": "^3.0.0"
+    "fastify": "^5.2.1",
+    "fastify-mongodb": "^4.2.0",
+    "fastify-plugin": "^5.0.1"
   },
   "devDependencies": {
-    "mongo-clean": "^2.0.0",
-    "tap": "^14.11.0"
+    "mongo-clean": "^2.0.0"
   }
 }
