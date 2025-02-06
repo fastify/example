@@ -1,6 +1,5 @@
 'use strict'
 
-const fastify = require('fastify')
 const fastifySession = require('@fastify/session')
 const fastifyCookie = require('@fastify/cookie')
 const fastifyFormbody = require('@fastify/formbody')
@@ -22,17 +21,17 @@ function plugin (instance, options, next) {
     reply.type('text/html')
     reply.send(loginPage())
   })
-  
+
   // add a login route that handles the actual login
   instance.post('/login', (request, reply) => {
     const { email, password } = request.body
-  
+
     if (password === 'abcdef') {
       request.session.authenticated = true
       reply.type('text/html')
       reply.send(defaultPage(true))
     } else {
-      reply.redirect(401, '/login')
+      reply.redirect('/login', 401)
     }
   });
 
@@ -40,7 +39,7 @@ function plugin (instance, options, next) {
     reply.type('text/html')
     reply.send(defaultPage(request.session.authenticated))
   });
-  
+
   // add a logout route
   instance.get('/logout', (request, reply) => {
     if (request.session.authenticated) {
