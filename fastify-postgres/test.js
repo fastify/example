@@ -1,16 +1,16 @@
 "use strict";
 
-const tap = require("tap");
+const {test} = require("node:test");
 const fastify = require("./server");
 
-tap.test("should test all API endpoint", async (t) => {
+test("should test all API endpoint", async (t) => {
   let book = {};
 
   const app = await fastify();
 
-  t.teardown(() => app.close());
+  t.after(() => app.close());
   // only to test error path
-  t.test("POST / should success create item", async (t) => {
+  await t.test("POST / should success create item", async (t) => {
     const response = await app.inject({
       method: "POST",
       url: "/",
@@ -19,34 +19,34 @@ tap.test("should test all API endpoint", async (t) => {
       },
     });
     const json = response.json();
-    t.equal(response.statusCode, 200);
-    t.equal(json[0].title, "Hello, World!");
+    t.assert.deepStrictEqual(response.statusCode, 200);
+    t.assert.deepStrictEqual(json[0].title, "Hello, World!");
     // assign created to use as compare value
     book = json[0];
   });
 
-  t.test("GET / should success return items", async (t) => {
+  await t.test("GET / should success return items", async (t) => {
     const response = await app.inject({
       method: "GET",
       url: "/",
     });
     const json = response.json();
-    t.equal(response.statusCode, 200);
-    t.equal(json.length > 0, true);
-    t.equal(json[0].title, "Hello, World!");
+    t.assert.deepStrictEqual(response.statusCode, 200);
+    t.assert.deepStrictEqual(json.length > 0, true);
+    t.assert.deepStrictEqual(json[0].title, "Hello, World!");
   });
 
-  t.test("GET /:id should success return item", async (t) => {
+  await t.test("GET /:id should success return item", async (t) => {
     const response = await app.inject({
       method: "GET",
       url: `/${book.id}`,
     });
     const json = response.json();
-    t.equal(response.statusCode, 200);
-    t.equal(json[0].title, "Hello, World!");
+    t.assert.deepStrictEqual(response.statusCode, 200);
+    t.assert.deepStrictEqual(json[0].title, "Hello, World!");
   });
 
-  t.test("UPDATE /:id should success return item", async (t) => {
+  await t.test("UPDATE /:id should success return item", async (t) => {
     const response = await app.inject({
       method: "PATCH",
       url: `/${book.id}`,
@@ -55,17 +55,17 @@ tap.test("should test all API endpoint", async (t) => {
       },
     });
     const json = response.json();
-    t.equal(response.statusCode, 200);
-    t.equal(json[0].title, "Hello again, World!");
+    t.assert.deepStrictEqual(response.statusCode, 200);
+    t.assert.deepStrictEqual(json[0].title, "Hello again, World!");
   });
 
-  t.test("DELETE /:id should success delete item", async (t) => {
+  await t.test("DELETE /:id should success delete item", async (t) => {
     const response = await app.inject({
       method: "DELETE",
       url: `/${book.id}`,
     });
     const json = response.json();
-    t.equal(response.statusCode, 200);
-    t.equal(json.rowCount, 1);
+    t.assert.deepStrictEqual(response.statusCode, 200);
+    t.assert.deepStrictEqual(json.rowCount, 1);
   });
 });
