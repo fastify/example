@@ -1,0 +1,9 @@
+{
+  "migrationPattern": "migrations/*",
+  "driver": "pg",
+  "host": "localhost",
+  "port": 5432,
+  "database": "fastify_postgres",
+  "username": "postgres",
+  "password": "postgres"
+}

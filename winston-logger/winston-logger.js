@@ -3,7 +3,7 @@
 const winston = require('winston')
 
 // Create custom logger
-const logger = winston.createLogger({
+const loggerInstance = winston.createLogger({
   // Define levels required by Fastify (by default winston has verbose level and does not have trace)
   levels: {
     fatal: 0,
@@ -25,7 +25,7 @@ const logger = winston.createLogger({
 })
 
 // create a fastify instance to run and specify logger
-const fastify = require('fastify')({ logger })
+const fastify = require('fastify')({ loggerInstance })
 
 fastify.get('/hello', (req, reply) => {
   fastify.log.info('Sending hello')
@@ -47,4 +47,4 @@ fastify.setErrorHandler((error, request, reply) => {
   reply.status(500).send({ message: 'Error occurred during request' })
 })
 
-fastify.listen(3000)
+fastify.listen({port: 3000})
