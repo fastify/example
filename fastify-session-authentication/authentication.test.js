@@ -1,35 +1,35 @@
 'use strict'
 
-const { test } = require('tap')
+const { test } = require('node:test')
 const plugin = require('./authentication')
 const axios = require('axios')
 const fastify = require('fastify')
 
 test('should be able to login', async (t) => {
   t.plan(3)
-  
+
   const app = await server()
   const { port } = app.server.address()
 
   const result0 = await performLogin(port, 'abcdef')
   const result1 = await toHomePage(port, result0.sessionCookie)
 
-  t.ok(result0.body.includes('logged in'))
-  t.ok(result1.body.includes('logged in'))
-  t.equal(result1.sessionCookie, result0.sessionCookie)
+  t.assert.ok(result0.body.includes('logged in'))
+  t.assert.ok(result1.body.includes('logged in'))
+  t.assert.equal(result1.sessionCookie, result0.sessionCookie)
   app.close()
 })
-  
+
 test('should not be able to login with wrong password', async (t) => {
   t.plan(2)
 
   const app = await server()
   const { port } = app.server.address()
-  
+
   const { location, statusCode } = await performLogin(port, '123456')
 
-  t.equal(location, '/login')
-  t.equal(statusCode, 401)
+  t.assert.equal(location, '/login')
+  t.assert.equal(statusCode, 401)
   app.close()
 })
 
@@ -38,12 +38,12 @@ test('should be not logged in', async (t) => {
 
   const app = await server()
   const { port } = app.server.address()
-  
+
   // login route
   const { sessionCookie, body } = await requestPath(port)
 
-  t.ok(body.includes('please login'))
-  t.ok(sessionCookie.includes('sessionId'))
+  t.assert.ok(body.includes('please login'))
+  t.assert.ok(sessionCookie.includes('sessionId'))
   app.close()
 })
 
@@ -52,16 +52,16 @@ test('should be able to logout', async (t) => {
 
   const app = await server()
   const { port } = app.server.address()
-  
+
   const result0 = await performLogin(port, 'abcdef')
   const result1 = await toHomePage(port, result0.sessionCookie)
   const result2 = await logout(port, result0.sessionCookie)
   const result3 = await toHomePage(port, result2.sessionCookie)
 
-  t.ok(result1.body.includes('logged in'))
-  t.ok(result3.body.includes('please login'))
-  t.ok(result3.sessionCookie === result2.sessionCookie)
-  t.ok(result0.sessionCookie !== result2.sessionCookie)
+  t.assert.ok(result1.body.includes('logged in'))
+  t.assert.ok(result3.body.includes('please login'))
+  t.assert.ok(result3.sessionCookie === result2.sessionCookie)
+  t.assert.ok(result0.sessionCookie !== result2.sessionCookie)
   app.close()
 })
 
@@ -70,25 +70,25 @@ test('should be able to call logout if not logged in', async (t) => {
 
   const app = await server()
   const { port } = app.server.address()
-  
+
   // logout route
   const result0 = await requestPath(port, 'logout')
   const result1 = await toHomePage(port, result0.sessionCookie)
-  
-  t.ok(result1.body.includes('please login'))
-  t.ok(result1.sessionCookie === result0.sessionCookie)
+
+  t.assert.ok(result1.body.includes('please login'))
+  t.assert.ok(result1.sessionCookie === result0.sessionCookie)
   app.close()
 })
 
 test('should be able to request login page', async (t) => {
   t.plan(1)
-  
+
   const app = await server()
   const { port } = app.server.address()
 
   const { statusCode } = await toLoginPage(port)
 
-  t.equal(statusCode, 200)
+  t.assert.equal(statusCode, 200)
   app.close()
 })
 
