@@ -31,7 +31,7 @@ Here a list of external projects that could be useful to find some tips and sugg
 
 PR are welcome! Consider that a project to be added to this repository needs to have:
 
-+ A `README.md` file that explain the project itself
++ A `README.md` file that explains the project itself
   + consider to use some [mermaid graph](https://mermaidjs.github.io)
 + Prefer a readable code, instead of concise
 + Comments on code that explain some code if there are more difficult parts
