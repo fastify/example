@@ -1,6 +1,6 @@
 # Fastify Postgres CRUD
 
-Motivation, this simple app are meant to show on how to use Postgres alongside with Fastify, and to show how to achieve 100% test coverage with it.
+Motivation, this simple app is meant to show on how to use Postgres alongside with Fastify, and to show how to achieve 100% test coverage with it.
 
 ## Requirements
 
