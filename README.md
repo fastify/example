@@ -1,9 +1,9 @@
 # example
 
-This repository is a collection of Fastify project that can be used to understand `how-to` archive commons
+This repository is a collection of Fastify project that can be used to understand `how-to` achieve common
 problems and requirements.
 
-Every directory is a stand alone project that you can read to undestand how it works and how it is configured.
+Every directory is a stand alone project that you can read to understand how it works and how it is configured.
 
 ## Projects
 
@@ -31,7 +31,7 @@ Here a list of external projects that could be useful to find some tips and sugg
 
 PR are welcome! Consider that a project to be added to this repository needs to have:
 
-+ A `README.md` file that exaplain the project itself
++ A `README.md` file that explains the project itself
   + consider to use some [mermaid graph](https://mermaidjs.github.io)
 + Prefer a readable code, instead of concise
 + Comments on code that explain some code if there are more difficult parts
@@ -42,7 +42,8 @@ PR are welcome! Consider that a project to be added to this repository needs to 
 Licensed under [MIT](./LICENSE).
 
 [authentication]: ./fastify-session-authentication
-[validation-messages]:./validation-messages/
+[validation-messages]: ./validation-messages
 [winston-logger]: ./winston-logger
 [typescript decorators]: ./typescript-decorators
 [fastify postgres]: ./fastify-postgres
+[tests]: ./tests
