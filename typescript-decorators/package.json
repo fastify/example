@@ -16,7 +16,7 @@
   "author": "Andrey Chalkin <L2jLiga@gmail.com> (https://github.com/L2jLiga)",
   "license": "MIT",
   "dependencies": {
-    "fastify": "^2.11.0",
+    "fastify": "^5.7.4",
     "fastify-decorators": "^2.0.0-1",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.16"
