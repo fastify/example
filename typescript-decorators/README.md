@@ -26,7 +26,7 @@ npm start
 
    *Note*: dependencies also may have own dependencies
 
-1. [typescript-decorators.ts] contains `bootstrap` method to auto-load all controllers 
+1. [typescript-decorators.ts] contains `bootstrap` method to auto-load all controllers
 
 1. [app.js] require Fastify instance from [typescript-decorators.ts] and launch application
 
