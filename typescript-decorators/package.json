@@ -7,7 +7,8 @@
     "start": "node bin/app.js",
     "try-me": "curl http://localhost:3000/main",
     "build": "tsc",
-    "test": "tap"
+    "pretest": "npm run build",
+    "test": "node --test \"test/**/*.test.js\""
   },
   "keywords": [
     "typescript",
@@ -23,7 +24,6 @@
   },
   "devDependencies": {
     "@types/node": "^12.12.24",
-    "tap": "^14.10.5",
     "typescript": "^3.7.4"
   }
 }
