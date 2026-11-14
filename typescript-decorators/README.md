@@ -40,4 +40,4 @@ For more details take a look on [fastify-decorators] package.
 [typescript-decorators.ts]: ./src/typescript-decorators.ts
 [typescript config]: ./tsconfig.json
 [app.js]: ./bin/app.js
-[fastify-decorators]: https://npmjs.org/package/fastify-decorators
+[fastify-decorators]: https://www.npmjs.com/package/fastify-decorators
