@@ -14,7 +14,7 @@ Contributors guide: https://github.com/fastify/example#contributions
 
 - [ ] the project has a dedicated folder in `kebab-case`
 - [ ] there is not an `index.js`, but a valuable name (usaully the same of the folder)
-- [ ] a test example is included (preferring using `tap`)
+- [ ] a test example is included (preferring using `node:test`)
 - [ ] the internal `README.md` file describe the project itself
 - [ ] there are comments on code that explain the most difficult parts
 - [ ] the project has been added in the examples list in the root `README.md` of this repository
